@@ -1,0 +1,19 @@
+# Build artifacts
+target/
+*.jar
+*.war
+*.nar
+*.ear
+
+# Maven
+.mvn/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.eclipse/
+
+# OS
+.DS_Store
+Thumbs.db

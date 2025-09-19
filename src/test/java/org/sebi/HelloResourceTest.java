@@ -17,4 +17,34 @@ class HelloResourceTest {
              .body(is("Hello from Quarkus REST"));
     }
 
+    @Test
+    void testReverseEndpoint() {
+        given()
+          .body("hello")
+          .when().post("/hello/reverse")
+          .then()
+             .statusCode(200)
+             .body(is("olleh"));
+    }
+
+    @Test
+    void testReverseEndpointEmptyString() {
+        given()
+          .body("")
+          .when().post("/hello/reverse")
+          .then()
+             .statusCode(200)
+             .body(is(""));
+    }
+
+    @Test
+    void testReverseEndpointWithNumbers() {
+        given()
+          .body("123456")
+          .when().post("/hello/reverse")
+          .then()
+             .statusCode(200)
+             .body(is("654321"));
+    }
+
 }
