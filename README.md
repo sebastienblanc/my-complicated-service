@@ -53,6 +53,53 @@ You can then execute your native executable with: `./target/my-complicated-servi
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
 
+## Running with Docker
+
+### Building the Docker Image
+
+Build the application first:
+
+```shell script
+./mvnw package
+```
+
+Then build the Docker image:
+
+```shell script
+docker build -f src/main/docker/Dockerfile.jvm -t my-complicated-service .
+```
+
+### Running the Container
+
+Run the container:
+
+```shell script
+docker run -i --rm -p 8080:8080 my-complicated-service
+```
+
+The application will be available at http://localhost:8080/hello
+
+### Docker Hub Images
+
+Pre-built images are automatically published to Docker Hub via GitHub Actions on every push to the main branch:
+
+```shell script
+docker run -i --rm -p 8080:8080 <your-dockerhub-username>/my-complicated-service:latest
+```
+
+## CI/CD
+
+This project includes a GitHub Actions workflow that:
+- Runs tests on every push and pull request
+- Builds and pushes Docker images to Docker Hub on pushes to the main branch
+- Performs security vulnerability scanning with Trivy
+
+### Required Secrets
+
+Configure the following secrets in your GitHub repository:
+- `DOCKER_USERNAME`: Your Docker Hub username
+- `DOCKER_PASSWORD`: Your Docker Hub password or access token
+
 ## Related Guides
 
 - REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
